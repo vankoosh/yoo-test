@@ -1,38 +1,31 @@
 import { useEffect, useState } from "react";
 import Thumbnail from "../Thumbnail/Thumbnail";
+import Album from "../Album/Album";
+import { v4 as uuid } from "uuid";
 
 export default function Viewer() {
-
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
-
-  // const firstTen = (data) => {
-  //   console.log(data.slice(0, 10));
-  // };
-
-  // firstTen(data);
-
-  console.log(error)
+  console.log(selectedUser.url)
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-
       try {
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/photos"
         );
         const data = await response.json();
-        setData(data);
+        const firstTenData = data.slice(0, 10);
+        setData(firstTenData);
       } catch (error) {
         setError(error);
       } finally {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
 
@@ -45,15 +38,27 @@ export default function Viewer() {
   if (!data) {
     return null;
   }
-  if (data) {
-    console.log(data)
-  }
 
-  
-  data.map((user) => {
-    return <Thumbnail user={user} setSelectedUser={setSelectedUser} />;
-  });
-
-  <Album user={selectedUser} />
-
+  return (
+    <div>
+      <div className="grid grid-cols-3">
+        {data.map((user) => {
+          return (
+            <Thumbnail
+              user={user}
+              key={uuid()}
+              setSelectedUser={setSelectedUser}
+            />
+          );
+        })}
+      </div>
+      <div>
+        {selectedUser ? (
+          <Album selectedUser={selectedUser} />
+        ) : (
+          <h1>Please select a photo</h1>
+        )}
+      </div>
+    </div>
+  );
 }
