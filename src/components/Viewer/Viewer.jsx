@@ -40,8 +40,8 @@ export default function Viewer() {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-3">
+    <div className="flex">
+      <div className="grid grid-cols-3 w-[calc(30vw+7rem)] gap-4">
         {data.map((user) => {
           return (
             <Thumbnail
@@ -54,7 +54,7 @@ export default function Viewer() {
       </div>
       <div>
         {selectedUser ? (
-          <Album selectedUser={selectedUser} />
+          <Album {...selectedUser} />
         ) : (
           <h1>Please select a photo</h1>
         )}

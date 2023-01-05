@@ -1,8 +1,8 @@
 
-export default function Album({ selectedUser }) {
+export default function Album({ url }) {
   return (
-    <div className="w-[50vw] h-full bg-slate-600">
-      <img src={selectedUser.url} alt="" />
+    <div className="">
+      <img src={url} alt="" />
       {/* <p>{}</p> */}
     </div>
   );
