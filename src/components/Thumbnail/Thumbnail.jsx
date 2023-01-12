@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Thumbnail({user, setSelectedUser}) {
+export default function Thumbnail({ user, setSelectedUser }) {
+  console.log("thumbnail rendered")
   return (
     <div className="w-[10vw] outline outline-1 p-4">
       <img src={user.thumbnailUrl} alt="thumbnail"></img>
